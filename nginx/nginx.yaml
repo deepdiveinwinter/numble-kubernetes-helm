@@ -1,0 +1,47 @@
+---
+# Source: nginx/templates/service.yaml
+kind: Service
+apiVersion: v1
+metadata:
+  name: nginx-sampleapps
+  annotations:
+        service.beta.kubernetes.io/ncloud-load-balancer-internal: "false"
+        service.beta.kubernetes.io/ncloud-load-balancer-layer-type: nlb
+        service.beta.kubernetes.io/ncloud-load-balancer-size: SMALL
+spec:
+  ports:
+  - port: 80
+    targetPort: 80
+    protocol: TCP
+  type: LoadBalancer
+---
+# Source: nginx/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-sampleapps
+  labels:
+    app: nginx-sampleapps
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nginx-sampleapps
+  template:
+    metadata:
+      labels:
+        app: nginx-sampleapps
+    spec:
+      containers:
+      - name: nginx
+        image: "nginx:1.14.2"
+        ports:
+        - containerPort: 80
+        livenessProbe:
+          httpGet:
+            path: /
+            port: http
+        readinessProbe:
+          httpGet:
+            path: /
+            port: http
