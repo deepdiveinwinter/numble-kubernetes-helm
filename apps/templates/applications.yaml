@@ -5,6 +5,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: {{ $key }}
+  namespace: argocd
 spec:
   source:
     repoURL: {{ $val.source.repoURL | default $.Values.default.applications.source.repoURL }}
