@@ -25,6 +25,7 @@ spec:
         image: "{{ .Values.nginx.image.repository }}:{{ .Values.nginx.image.tag | default .Chart.AppVersion }}"
         ports:
         - containerPort: {{ .Values.nginx.port }}
+          name: http
         livenessProbe:
           httpGet:
             path: /
