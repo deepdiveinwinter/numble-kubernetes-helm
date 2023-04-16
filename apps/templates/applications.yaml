@@ -1,0 +1,23 @@
+{{- range $key,$val := $.Values.applications }}
+{{- if $val.enabled }}
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: {{ $key }}
+spec:
+  source:
+    repoURL: {{ $val.source.repoURL | default $.Values.default.applications.source.repoURL }}
+    path: {{ $val.source.path | default $.Values.default.applications.source.path }}
+    targetRevision: {{ $val.source.targetRevision | default $.Values.default.applications.source.targetRevision }}
+  destination:
+    server: {{ $val.destination.server | default $.Values.default.applications.destination.server }}
+    namespace: {{ $val.destination.namespace | default $.Values.default.applications.destination.namespace }}
+  project: {{ $val.project | default $.Values.default.project.name }}
+  {{- if $.Values.default.applications.enableAutoSync }}
+  syncPolicy:
+    syncOptions:
+      {{- toYaml $.Values.default.applications.syncPolicy.syncOptions | nindent 6 }}
+  {{- end }}
+{{- end }}
+{{- end }}

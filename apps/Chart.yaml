@@ -1,0 +1,4 @@
+apiVersion: v2
+name: apps
+description: A Helm chart for multiple applications (include Nginx, ArgoCD)
+version: 0.1.0

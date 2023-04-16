@@ -1,0 +1,37 @@
+
+default:
+  project:
+    name: numble
+    namespace: argocd
+  applications:
+    source:
+      repoURL: https://github.com/deepdiveinwinter/numble-kubernetes-helm
+      path: null
+      targetRevision: HEAD
+    destination:
+      server: 'https://kubernetes.default.svc'
+      namespace: default
+    enableAutoSync: true
+    syncPolicy:
+      syncOptions:
+      - CreateNamespace=true
+
+project:
+  name: numble
+  namespace: argocd
+
+applications:
+  nginx:
+    enabled: true
+    project: numble
+    source:
+      path: nginx
+    destination:
+      namespace: nginx
+  argocd:
+    enabled: true
+    project: numble
+    source:
+      path: argocd
+    destination:
+      namespace: argocd
