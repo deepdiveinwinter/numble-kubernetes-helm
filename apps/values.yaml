@@ -23,14 +23,14 @@ project:
 applications:
   nginx:
     enabled: true
-    project: numble
+    project: default
     source:
       path: nginx
     destination:
       namespace: nginx
   argocd:
     enabled: true
-    project: numble
+    project: default
     source:
       path: argocd
     destination:
