@@ -20,6 +20,11 @@ logstashPipeline:
         port => 5044
       }
     }
+    filter {
+      prune {
+        blacklist_names => [ "agent.*" ]
+      }
+    }
     output {
       elasticsearch {
         hosts => ["https://eck-elasticsearch-es-http:9200"]
