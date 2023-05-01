@@ -35,3 +35,45 @@ applications:
       path: argocd
     destination:
       namespace: argocd
+  eck-operator:
+    enabled: true
+    project: default
+    source:
+      path: eck-operator
+    destination:
+      namespace: elastic-system
+  eck-elasticsearch:
+    enabled: true
+    project: default
+    source:
+      path: eck-elasticsearch
+    destination:
+      namespace: eck-cluster
+  eck-beats:
+    enabled: true
+    project: default
+    source:
+      path: eck-beats
+    destination:
+      namespace: eck-cluster
+  eck-kibana:
+    enabled: true
+    project: default
+    source:
+      path: eck-kibana
+    destination:
+      namespace: eck-cluster
+  logstash:
+    enabled: true
+    project: default
+    source:
+      path: logstash
+    destination:
+      namespace: eck-cluster
+  kube-prometheus-stack:
+    enabled: true
+    project: default
+    source:
+      path: kube-prometheus-stack
+    destination:
+      namespace: prometheus-stack
